@@ -1,7 +1,7 @@
 <template>
     <tr>
         <td>
-            <input type="number" class="form-control-sm" style="width:5em" v-bind:="qvalue" v-on:input="sendChangeEvent" />
+            <input type="number" class="form-control-sm" style="width:5em" v-bind:value="qvalue" v-on:input="sendChangeEvent" />
         </td>
         <td>{{line.product.name}}</td>
         <td class="text-right">{{line.product.price | currency }}</td>
