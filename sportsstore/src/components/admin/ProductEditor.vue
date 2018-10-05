@@ -50,58 +50,60 @@ v-on:click="handleSave">
 
 
 <script>
-
-import { mapState,mapActions } from "vuex";
+import { mapState, mapActions } from "vuex";
 import { required } from "vuelidate/lib/validators";
 
 export default {
-    data:function(){
-        return {
-            product:{}
-        }
+  data: function() {
+    return {
+      product: {}
+    };
+  },
+  computed: {
+    ...mapState({
+      pages: state => state.pages,
+      currentPage: state => state.currentPage,
+      categories: state => state.categories
+    }),
+    editMode() {
+      return this.$route.params["op"] == "edit";
     },
-    computed:{
-        ...mapState({
-            pages: state => state.pages,
-            currentPage: state => state.currentPage,
-            categories: state => state.categories
-        }),
-        editMode(){
-            return this.$route.params["op"] == "edit";
-        },
-        themeClass(){
-            return this.editMode ? "bg-info" : "bg-primary";
-        },
-        themeClassButton(){
-            return this.editMode ? "btn-info" : "btn-primary";
-        }
+    themeClass() {
+      return this.editMode ? "bg-info" : "bg-primary";
     },
-    validations:{
-        product:{
-            name:{required},
-            description:{required},
-            category:{required},
-            price:{required}
-        }
-    },
-    methods:{
-        ...mapActions(["addProduct", "updateProduct"]),
-        async handleSave() {
-            this.$v.$touch();
-            if(!this.$v.$invalid){
-                if(this.editMode){
-                    await this.updateProduct(this.product);
-                } else {
-                    await this.addProduct(this.product);
-                }
-                this.$route.push("/admin/products");
-            }
-        }
-    },
-    created(){
-        if(this.editMode){
-            Object.assign(this.product, this.$store.getters.producyById(this.$route.params["id"]))
-        }
+    themeClassButton() {
+      return this.editMode ? "btn-info" : "btn-primary";
     }
-}
+  },
+  validations: {
+    product: {
+      name: { required },
+      description: { required },
+      category: { required },
+      price: { required }
+    }
+  },
+  methods: {
+    ...mapActions(["addProduct", "updateProduct"]),
+    async handleSave() {
+      this.$v.$touch();
+      if (!this.$v.$invalid) {
+        if (this.editMode) {
+          await this.updateProduct(this.product);
+        } else {
+          await this.addProduct(this.product);
+        }
+        this.$route.push("/admin/products");
+      }
+    }
+  },
+  created() {
+    if (this.editMode) {
+      Object.assign(
+        this.product,
+        this.$store.getters.producyById(this.$route.params["id"])
+      );
+    }
+  }
+};
 </script>

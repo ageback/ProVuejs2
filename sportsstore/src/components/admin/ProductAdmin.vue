@@ -36,17 +36,17 @@
 import PageControls from "../PageControls";
 import { mapGetters, mapActions } from "vuex";
 export default {
-    components:{PageControls},
-    computed:{
-        ...mapGetters({
-            products: "processedProducts"
-        })
-    },
-    methods:{
-        ...mapActions(["removeProduct"]),
-        handleEdit(product){
-            this.$router.push(`/admin/products/edit/${product.id}`);
-        }
+  components: { PageControls },
+  computed: {
+    ...mapGetters({
+      products: "processedProducts"
+    })
+  },
+  methods: {
+    ...mapActions(["removeProduct"]),
+    handleEdit(product) {
+      this.$router.push(`/admin/products/edit/${product.id}`);
     }
-}
+  }
+};
 </script>
