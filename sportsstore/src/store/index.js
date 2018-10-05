@@ -21,7 +21,9 @@ export default new Vuex.Store({
         pageSize: 4,
         currentCategory: "All",
         pages: [],
-        serverPageCount: 0
+        serverPageCount: 0,
+        searchTerm: "",
+        showSearch: false
     },
     getters:{
         // productsFilteredByCategory: 
@@ -90,7 +92,7 @@ export default new Vuex.Store({
             context.commit("_setPageSize", size);
             context.dispatch("getPage", 2);
         },
-        setCurrentCategory(context, cagegory){
+        setCurrentCategory(context, category){
             context.commit("clearPages");
             context.commit("_setCurrentCategory",category);
             context.dispatch("getPage",2);
